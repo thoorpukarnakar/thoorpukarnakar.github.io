@@ -1,8 +1,5 @@
 
 <br>
-<br>
-<br>
-
 
 ## Finding Visually Attractive object using Hierarchical approach
 
