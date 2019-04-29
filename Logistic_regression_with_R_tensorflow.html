@@ -1,0 +1,23 @@
+import sys
+n = int(input())
+x = list(map(int,sys.stdin.readline().split(" ")))
+y = list(map(int,sys.stdin.readline().split(" ")))
+
+def cal(arr_x,arr_y):
+    sum_x = sum(arr_x)
+    sum_y = sum(arr_y)
+    
+    mean_x = sum_x/n
+    mean_y = sum_y/n
+  
+    subtracted_mean_x = [i - mean_x for i in numbers_x]
+    subtracted_mean_y = [i - mean_y for i in numbers_y]
+
+    x_times_y = [a * b for a, b in list(zip(subtracted_mean_x, subtracted_mean_y))]
+
+    x_squared = [i * i for i in numbers_x]
+    y_squared = [i * i for i in numbers_y]
+
+    return sum(x_times_y) / math.sqrt(sum(x_squared) * sum(y_squared))    
+    
+    
