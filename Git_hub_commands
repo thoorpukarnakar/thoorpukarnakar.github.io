@@ -1,0 +1,105 @@
+Stage​ ​&​ ​Snapshot 
+git status - show the status of what is staged for your next commit and what is modified in your working directory 
+git add [file] - add a file as it looks now to your next commit (stage) 
+git reset [file] - reset the staging for a file so the change is not in your next commit (unstage) 
+git commit - commit your staged content as a new commit snapshot, use -a to commit unstaged 
+git tag -a <tag> - adds an annotated tag to the last commit 
+git rm [file] - remove a file from your working directory and unstage 
+git gui - tcl/tk GUI program to make all of these commands simpler 
+ 
+Branch​ ​and​ ​Merge 
+git branch - list your branches. a * will appear next to the currently active branch 
+git branch [branch-name] - create a new branch at the current commit 
+git branch --list --remotes - list remote branches in local repo 
+git checkout [branch|tag] - switch to another branch/tag and make it your working directory 
+git checkout -b [branch] - create a branch and immediately switch to it 
+git merge [branch] - merge another branch into current branch, then commit 
+git merge --no-commit [branch] - merge another branch into current branch, no commit 
+git merge --abort - aborts merge that has conflicts 
+git mergetool - will step through conflicted files after merge, commit after conflicts resolved 
+git reset HEAD -- <file...> - to unstage a file 
+git log - show commit logs, add --oneline to see condensed summary 
+git stash - stash away the currently uncommitted modifications in your working directory temporarily 
+git stash apply - re-apply the last stashed changes 
+ 
+Inspect​ ​&​ ​Compare 
+git log - show the commit history for the currently active branch 
+git log branchB..branchA - show the commits on branchA that are not on branchB 
+git log --follow [file] - show the commits that changed file, even across renames 
+git diff - show difference between what is unstaged and what is commited 
+git diff --staged - shows difference between what is staged and the last commit 
+git diff HEAD - diff of what is staged and not staged against the last commit 
+git diff branchB...branchA - show the diff of what is in branchA that is not in branchB 
+git show [SHA] - show any object in Git in human-readable format 
+gitk - tcl/tk program to show the commit log in a GUI 
+ 
+Share​ ​&​ ​Update 
+git remote add [alias] [url] - add a git URL as an alias 
+git remote -v - show remote repositories including url 
+git fetch [alias] - fetch down all the branches from that Git remote 
+git merge [alias]/[branch] - merge a branch on the server into your currently active branch to bring it up to date 
+git push [alias] [branch] - push the work on your branch to update that branch on the remote git repository 
+git pull [alias] [branch] - fetch from the URL tracked by the current branch and immediately try to merge in the specified tracked branch 
+ 
+INIT​ ​&​ ​Setup 
+git config [key] [value] - set a config value in this repository 
+git config --global [key] [value] - set a config value globally for this user, user.email 
+git init - initialize an existing directory as a Git repository 
+git clone [url] - clone a Git repository from a URL 
+git help [command] - get help on any Git command 
+git clean - clean up any file not being tracked by git 
+ 
+Examples 
+Basic​ ​local​ ​Git​ ​Workflow​ ​Example 
+Initialize a new git repository, then stage all the files in the directory and finally commit the initial snapshot. 
+$ git init 
+$ git add . 
+$ git commit -m 'initial commit' 
+Create a new branch named featureA, then check it out so it is the active branch. then edit and stage some files and finally commit the new snapshot. 
+$ git branch featureA 
+$ git checkout featureA 
+$ (edit files) 
+$ git add (files) 
+$ git commit -m 'add feature A' 
+Switch back to the master branch, reverting the featureA changes you just made, then edit some files and commit your new changes directly in the master branch context. 
+$ git checkout master 
+$ (edit files) 
+$ git commit -a -m 'change files' 
+Merge the featureA changes into the master branch context, combining all your work. Finally delete the featureA branch. 
+$ git merge featureA 
+$ git branch -d featureA 
+Sharing​ ​remote​ ​branch​ ​between​ ​developers​, <alias>​ is most likely ‘origin’,​ ​and branch name is the same in all repo’s 
+git push <alias> <branch name> - to push changes up to remote branch on repo 
+To update/refresh local repo branch 
+git pull <alias> <branch> - merges branch to current local branch 
+or 
+git fetch <alias> - gets latest content from ‘origin’ 
+git diff <branch> <alias>/<branch> - shows committed​ ​diffs between origin branch and local branch 
+git merge <alias>/<branch> - merge refresh remote branch to local branch 
+Creating​ ​new​ ​remote​ ​repository​ ​-​ ​create a new bare remote repository and populates it with a local repo of the same name <repo name>. 
+remote> git clone --bare <repo name> 
+local>cd <repo name> 
+local>git init 
+local>git add . - add all files from root 
+local>git commit -a -m “initial commit” 
+local>git remote add origin [url to remote repo] 
+local>git push origin master 
+Push​ ​up​ ​an​ ​existing​ ​repository​ ​to​ bitbucket.org (set git proxy server environment variable if behind a proxy server) 
+cd /path/to/my/repo 
+git remote add origin git@bitbucket.org:<username>/<directoryName.git> 
+git push -u origin --all # pushes up the repo and its refs for the first time 
+git push -u origin --tags # pushes up any tags 
+Ignore​ ​file​ ​contents 
+GWT/GAE project 
+/.gwt 
+build/ 
+classes/ 
+deploy/ 
+war/<GWT module name> e.g. war/geofence/ 
+war/WEB-INF/appengine-generated/ 
+*.jar 
+*.class 
+*~ 
+*swp 
+gwt-unitCache 
+www-test 
